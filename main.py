@@ -1,17 +1,20 @@
 import csv
-
-path = "data/dump_2026_yearly/csv/teams.csv"
+from operator import contains
 
 
 def main():
+    path: str = input("Enter a path to a csv file: ")
+    search_string: str = input("Enter a search term: ")
     try:
         with open(path, "r") as file:
             dialect = csv.Sniffer().sniff(file.read(2048))
             file.seek(0)
             reader = csv.reader(file, dialect=dialect)
-            print(next(reader))
+            header_row = next(reader)
+            print(header_row)
             for row in reader:
-                print(row)
+                if search_string in row:
+                    print(row)
 
     except FileNotFoundError:
         print(f"Could not find file: {path}")
