@@ -13,10 +13,16 @@ def main():
             file.seek(0)
             reader = csv.reader(file, dialect=dialect)
             header_row = next(reader)
-            print(header_row)
+            cities: list = []
             for row in reader:
-                if search_string in row:
-                    print("MATCH:", row)
+                city: dict = {}
+                for i in range(len(header_row)):
+                    city[header_row[i]] = row[i]
+                cities.append(city)
+            for city in cities:
+                if search_string in city.values():
+                    for key, value in city.items():
+                        print(f"{key}: {value}")
 
     except FileNotFoundError:
         print(f"Could not find file: {path}")
