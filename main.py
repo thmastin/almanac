@@ -4,9 +4,8 @@ from operator import contains
 
 def main():
     path: str = "data/dump_2026_yearly/csv/cities.csv"
-    search_string: str = "Flagstaff"
     # path: str = input("Enter a path to a csv file: ")
-    # search_string: str = input("Enter a search term: ")
+    search_string: str = input("Enter a city name: ")
     try:
         with open(path, "r") as file:
             dialect = csv.Sniffer().sniff(file.read(2048))
@@ -23,6 +22,7 @@ def main():
                 if search_string in city.values():
                     for key, value in city.items():
                         print(f"{key}: {value}")
+                    print("===========================")
 
     except FileNotFoundError:
         print(f"Could not find file: {path}")
